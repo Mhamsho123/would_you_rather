@@ -1,8 +1,8 @@
 import { wouldYouRatherQuestions } from "./data.js";
 
 const questionEl = document.getElementById('question')
-const answerEl = document.getElementById('answer')
-
+const answerEl1 = document.getElementById('answer1')
+const answerEl2 = document.getElementById('answer2')
 
 
 
@@ -10,12 +10,18 @@ function gameLoop(){
     const gameData = wouldYouRatherQuestions
     let randomChoice = Math.floor(Math.random()* gameData.length)
     let gameChoice = gameData[randomChoice]
-    console.log(gameChoice)
+    return gameChoice
 }
-
+    
 
 function renderPage(){
+
     let gameSelection = gameLoop()
+
+
+    questionEl.textContent = gameSelection.question
+    answerEl1.textContent = gameSelection.choices[0]
+    answerEl2.textContent = gameSelection.choices[1]
 
 }
 
