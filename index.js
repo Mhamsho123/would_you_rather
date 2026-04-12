@@ -3,8 +3,16 @@ import { wouldYouRatherQuestions } from "./data.js";
 const questionEl = document.getElementById('question')
 const answerEl1 = document.getElementById('answer1')
 const answerEl2 = document.getElementById('answer2')
+const answerContainer = document.getElementById('inner-rather-container')
+console.log(answerContainer)
+console.log(answerEl1)
 
+answerEl1.addEventListener("click", handleAnswerClick);
+answerEl2.addEventListener("click", handleAnswerClick);
 
+function handleAnswerClick(){
+    answerContainer.textContent = 'hello'
+}
 
 function gameLoop(){
     const gameData = wouldYouRatherQuestions
