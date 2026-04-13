@@ -4,6 +4,11 @@ const questionEl = document.getElementById('question')
 const answerEl1 = document.getElementById('answer1')
 const answerEl2 = document.getElementById('answer2')
 const answerContainer = document.getElementById('inner-rather-container')
+
+const precentage1El = document.getElementById('precentage1')
+console.log('precentage1El')
+
+
 console.log(answerContainer)
 console.log(answerEl1)
 
@@ -14,8 +19,10 @@ function handleAnswerClick(event) {
     let chosenChoice = "";
     let otherChoice = "";
 
-    const precentage1 = Math.floor(Math.random() * 100)+1;
-    const precentage2 = Math.floor(Math.random() * 100)+1;
+    const percentage1 = Math.floor(Math.random() * 100)+1;
+    const percentage2 = 100 - percentage1;
+
+  
 
     if (event.target.id === "answer1") {
         chosenChoice = answerEl1.textContent;
@@ -25,18 +32,27 @@ function handleAnswerClick(event) {
         otherChoice = answerEl1.textContent;
     }
     answerContainer.innerHTML = 
-    `<div>
-        <div>
+    answerContainer.innerHTML = `
+    <div class="results">
+        <div class="result-box">
             <h3>${chosenChoice}</h3>
-            <p class="precentage1" id="precentage1">${precentage1}</p>
-        </div>
-        <div>
-            <h3>${otherChoice}</h3>
-            <p class="precentage2" id="precentage2">${precentage2}</p>
+            <div class="bar-background">
+                <div class="bar-fill" id="bar1"></div>
+            </div>
+            <p>${percentage1}%</p>
         </div>
 
+        <div class="result-box">
+            <h3>${otherChoice}</h3>
+            <div class="bar-background">
+                <div class="bar-fill" id="bar2"></div>
+            </div>
+            <p>${percentage2}%</p>
+        </div>
     </div>
-    `
+    `;
+
+
 }
 
 function gameLoop(){
