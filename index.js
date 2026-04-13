@@ -14,6 +14,9 @@ function handleAnswerClick(event) {
     let chosenChoice = "";
     let otherChoice = "";
 
+    const precentage1 = Math.floor(Math.random() * 100)+1;
+    const precentage2 = Math.floor(Math.random() * 100)+1;
+
     if (event.target.id === "answer1") {
         chosenChoice = answerEl1.textContent;
         otherChoice = answerEl2.textContent;
@@ -21,6 +24,19 @@ function handleAnswerClick(event) {
         chosenChoice = answerEl2.textContent;
         otherChoice = answerEl1.textContent;
     }
+    answerContainer.innerHTML = 
+    `<div>
+        <div>
+            <h3>${chosenChoice}</h3>
+            <p class="precentage1" id="precentage1">${precentage1}</p>
+        </div>
+        <div>
+            <h3>${otherChoice}</h3>
+            <p class="precentage2" id="precentage2">${precentage2}</p>
+        </div>
+
+    </div>
+    `
 }
 
 function gameLoop(){
