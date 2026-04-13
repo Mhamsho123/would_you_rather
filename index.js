@@ -10,8 +10,17 @@ console.log(answerEl1)
 answerEl1.addEventListener("click", handleAnswerClick);
 answerEl2.addEventListener("click", handleAnswerClick);
 
-function handleAnswerClick(){
-    answerContainer.textContent = 'hello'
+function handleAnswerClick(event) {
+    let chosenChoice = "";
+    let otherChoice = "";
+
+    if (event.target.id === "answer1") {
+        chosenChoice = answerEl1.textContent;
+        otherChoice = answerEl2.textContent;
+    } else {
+        chosenChoice = answerEl2.textContent;
+        otherChoice = answerEl1.textContent;
+    }
 }
 
 function gameLoop(){
