@@ -1,83 +1,77 @@
 import { wouldYouRatherQuestions } from "./data.js";
 
-const questionEl = document.getElementById('question')
-const answerEl1 = document.getElementById('answer1')
-const answerEl2 = document.getElementById('answer2')
-const answerContainer = document.getElementById('inner-rather-container')
-
-const precentage1El = document.getElementById('precentage1')
-console.log('precentage1El')
-
-
-console.log(answerContainer)
-console.log(answerEl1)
-
-answerEl1.addEventListener("click", handleAnswerClick);
-answerEl2.addEventListener("click", handleAnswerClick);
+const questionEl = document.getElementById("question");
+const answerContainer = document.getElementById("inner-rather-container");
 
 function handleAnswerClick(event) {
-    let chosenChoice = "";
-    let otherChoice = "";
+  const answerEl1 = document.getElementById("answer1");
+  const answerEl2 = document.getElementById("answer2");
 
-    const percentage1 = Math.floor(Math.random() * 100)+1;
-    const percentage2 = 100 - percentage1;
+  let chosenChoice = "";
+  let otherChoice = "";
 
-  
+  const percentage1 = Math.floor(Math.random() * 100) + 1;
+  const percentage2 = 100 - percentage1;
 
-    if (event.target.id === "answer1") {
-        chosenChoice = answerEl1.textContent;
-        otherChoice = answerEl2.textContent;
-    } else {
-        chosenChoice = answerEl2.textContent;
-        otherChoice = answerEl1.textContent;
-    }
-    answerContainer.innerHTML = 
-    answerContainer.innerHTML = `
+  if (event.target.id === "answer1") {
+    chosenChoice = answerEl1.textContent;
+    otherChoice = answerEl2.textContent;
+  } else {
+    chosenChoice = answerEl2.textContent;
+    otherChoice = answerEl1.textContent;
+  }
+
+  answerContainer.innerHTML = `
     <div class="results">
-        <div class="result-box">
-            <h3>${chosenChoice}</h3>
-            <div class="bar-background">
-                <div class="bar-fill" id="bar1"></div>
-            </div>
-            <p>${percentage1}%</p>
+      <div class="result-box">
+        <h3>${chosenChoice}</h3>
+        <div class="bar-background">
+          <div class="bar-fill" id="bar1"></div>
         </div>
+        <p>${percentage1}%</p>
+      </div>
 
-        <div class="result-box">
-            <h3>${otherChoice}</h3>
-            <div class="bar-background">
-                <div class="bar-fill" id="bar2"></div>
-            </div>
-            <p>${percentage2}%</p>
+      <div class="result-box">
+        <h3>${otherChoice}</h3>
+        <div class="bar-background">
+          <div class="bar-fill" id="bar2"></div>
         </div>
+        <p>${percentage2}%</p>
+      </div>
+
+      <div>
+        <button class="next-btn" id="next-btn">Next</button>
+      </div>
     </div>
-    `;
+  `;
 
-    const bar1 = document.getElementById('bar1')
-    const bar2 = document.getElementById('bar2')
+  document.getElementById("bar1").style.width = `${percentage1}%`;
+  document.getElementById("bar2").style.width = `${percentage2}%`;
 
-    bar1.style.width = `${percentage1}`;
-    bar2.style.width = `${percentage2}`;
+  document.getElementById("next-btn").addEventListener("click", renderPage);
 }
 
-function gameLoop(){
-    const gameData = wouldYouRatherQuestions
-    let randomChoice = Math.floor(Math.random()* gameData.length)
-    let gameChoice = gameData[randomChoice]
-    return gameChoice
-}
-    
-
-function renderPage(){
-
-    let gameSelection = gameLoop()
-
-
-    questionEl.textContent = gameSelection.question
-    answerEl1.textContent = gameSelection.choices[0]
-    answerEl2.textContent = gameSelection.choices[1]
-
+function gameLoop() {
+  const randomChoice = Math.floor(Math.random() * wouldYouRatherQuestions.length);
+  return wouldYouRatherQuestions[randomChoice];
 }
 
+function renderPage() {
+  const gameSelection = gameLoop();
 
+  questionEl.textContent = gameSelection.question;
 
-renderPage()
+  answerContainer.innerHTML = `
+    <div class="answer-container">
+      <button class="answer" id="answer1">${gameSelection.choices[0]}</button>
+    </div>
+    <div class="answer-container">
+      <button class="answer" id="answer2">${gameSelection.choices[1]}</button>
+    </div>
+  `;
+
+  document.getElementById("answer1").addEventListener("click", handleAnswerClick);
+  document.getElementById("answer2").addEventListener("click", handleAnswerClick);
+}
+
+renderPage();
